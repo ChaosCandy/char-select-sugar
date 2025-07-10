@@ -1,12 +1,13 @@
--- THIS COMMENT IS A TEST!!!! FOR GITHUB!!!! <3
+-- Comment Test Again!
 
 local function sugarhpvaluegrab()
     sugarhpvalue = gMarioStates[0].health >> 8
 end
 
+
 -- This is her custom power meter!
         local function sugar_hp()
-
+                local m = gMarioStates[0]
             local SugarHp = {
             [0] = get_texture_info("HPMeter0"),
             [1] = get_texture_info("HPMeter1"),
@@ -20,11 +21,11 @@ end
             }
             
             local sugardisplayhp = math.floor(tonumber(sugarhpvalue))
-            
+            if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
             djui_hud_set_resolution(RESOLUTION_N64)
             djui_hud_render_texture(SugarHp[sugardisplayhp], 150, 5, 1, 1)
-    
         end
+    end
 
  --[[ This is just a font test!
         local function sugar_texttest(text)
@@ -51,16 +52,16 @@ end
         end
     ]]
 
-
 local function hook_update()
     sugarhpvaluegrab()
 end
-        
+
+
 -- The HUD Rendering In Action!
 local function on_hud_render()
-    sugar_hp()
+     sugar_hp()
     -- sugar_texttest((tostring(sugarhpvalue)))
-end
+    end
 
 -- Hooks
 hook_event(HOOK_ON_HUD_RENDER_BEHIND, on_hud_render)
