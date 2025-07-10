@@ -20,14 +20,18 @@ end
             [8] = get_texture_info("HPMeter8"),
             }
             
+            local hudmovetimer = 0
+            hudmovetimer = hudmovetimer + 1
+
+
             local sugardisplayhp = math.floor(tonumber(sugarhpvalue))
-            if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
+            if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and not obj_get_first_with_behavior_id(id_bhvActSelector) then
             djui_hud_set_resolution(RESOLUTION_N64)
-            djui_hud_render_texture(SugarHp[sugardisplayhp], 150, 5, 1, 1)
+            djui_hud_render_texture(SugarHp[sugardisplayhp], (djui_hud_get_screen_width() / 2.5 ), (djui_hud_get_screen_height() / 28), 1, 1)
         end
     end
 
- --[[ This is just a font test!
+ --[[ This is just a font test! [WHY IS THIS STILL FUCKING HERE!!?!?!?!?!?!? THIS CODE IS FROM AN ENTIRELY DIFFERENT MOD!!!]
         local function sugar_texttest(text)
             
             local scale = 1
