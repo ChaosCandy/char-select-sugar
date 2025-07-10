@@ -1,0 +1,16 @@
+Common Issues
+
+Characters Sharing Custom Health Meter:
+Change the HealthLeft/HealthRight/Pie1-8 file names for each character (file names & names in lua). If you use the same file names, the characters custom HUDS will be shared when loaded togehter.
+
+Script Errors in game:
+Hit F1 on keyboard to diagnose issues.
+
+.Geo file not generating:
+Remove all other .geo files from the actors folder and run SM64 CoopDX. .Geo files will only generate if there aren't any other .geo files in the actors folder. Move other .geo files back to the actors folder once the new file is generated.
+
+.Tex file not generating:
+Ensure your image is in the textures folder, and using the proper dimensions (Multiples of 16x16 -> 32x32/64x64/128x128 etc up to 1024x1024)
+
+Custom Sound Effects not working:
+Must be .ogg format. Make sure file name in Lua file contains .ogg extension.

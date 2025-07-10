@@ -1,0 +1,22 @@
+Original Template by: Squishy
+
+Additional Template images by: Melzinoff
+
+Edits/Tutorial by: Garrulous64
+
+
+
+LUA INSTRUCTIONS:
+
+Look for (Ctrl+F Search) CHARNAME, CHARNAME2, FILENAME
+
+Replace FILENAME with the exact name of the file that you put in your mod folders. Ex -> "FILENAME_geo" i'd rename "tsonic_geo"
+
+Replace CHARNAME with your character's name as normally written.
+
+Replace CHARNAME2 with an abbreviation of your character's name, ex -> Toei Sonic becomes "TSONIC" (IN ALL CAPS)
+
+There are other sections where you may write descriptions for your characters/other information that will appear in game.
+
+
+Feel free to delete this and the Reminders txt file from this folder once you are done with them.
