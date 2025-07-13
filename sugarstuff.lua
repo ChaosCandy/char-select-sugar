@@ -4,10 +4,26 @@ local function sugarhpvaluegrab()
     sugarhpvalue = gMarioStates[0].health >> 8
 end
 
+sugarhudmovevar = -32
 
 -- This is her custom power meter!
-        local function sugar_hp()
-                local m = gMarioStates[0]
+local function sugar_hp()
+local m = gMarioStates[0]
+if m.playerIndex == 0 then
+if (m.health >> 8) < 8 or m.waterLevel >= m.pos.y then -- if mario's health (shifted 8 bytes) under 8, or is he underwater
+sugarhudmovevar = sugarhudmovevar + (8 - (sugarhudmovevar / 7)) -- health meter move stuff
+else
+    if m.waterLevel < m.pos.y then
+sugarhudmovevar = sugarhudmovevar - (5 + (sugarhudmovevar / 12)) -- more health meter move stuff
+    end
+end
+if sugarhudmovevar >= 56 then
+sugarhudmovevar = 56 -- stopping the health move var from overflowing
+end
+if sugarhudmovevar <= -32 then
+sugarhudmovevar = -32 -- stopping the health move var from underflowing
+end
+end
             local SugarHp = {
             [0] = get_texture_info("HPMeter0"),
             [1] = get_texture_info("HPMeter1"),
@@ -27,7 +43,7 @@ end
             local sugardisplayhp = math.floor(tonumber(sugarhpvalue))
             if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and not obj_get_first_with_behavior_id(id_bhvActSelector) then
             djui_hud_set_resolution(RESOLUTION_N64)
-            djui_hud_render_texture(SugarHp[sugardisplayhp], (djui_hud_get_screen_width() / 2.5 ), (djui_hud_get_screen_height() / 28), 1, 1)
+            djui_hud_render_texture(SugarHp[sugardisplayhp], ((djui_hud_get_screen_width() / 2) - 32), ((djui_hud_get_screen_height() / 28) - 64) + sugarhudmovevar, 1, 1)
         end
     end
 
