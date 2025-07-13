@@ -1,8 +1,14 @@
+-- Setting up our variables here!
+
 local function sugarhpvaluegrab()
     sugarhpvalue = gMarioStates[0].health >> 8
 end
 
 sugarhudhpmovevar = -32
+
+-- Variable set up ends here!
+
+
 
 -- This is her custom power meter!
 local function sugar_hp()
@@ -12,19 +18,19 @@ local function sugar_hp()
     if m.playerIndex == 0 then -- Checking if you're the local player.
        
         if (m.health >> 8) < 8 or m.waterLevel >= m.pos.y then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
-            sugarhudhpmovevar = sugarhudhpmovevar + (8 - (sugarhudhpmovevar / 7)) -- health meter move stuff
+            sugarhudhpmovevar = sugarhudhpmovevar + (8 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
         else
             if m.waterLevel < m.pos.y then
-                sugarhudhpmovevar = sugarhudhpmovevar - (5 + (sugarhudhpmovevar / 12)) -- more health meter move stuff
+                sugarhudhpmovevar = sugarhudhpmovevar - (5 + (sugarhudhpmovevar / 12)) -- Making Sugar's Healh Meter Move UP.
             end
         end
 
-        if sugarhudhpmovevar >= 56 then
-            sugarhudhpmovevar = 56 -- stopping the health move var from overflowing
+        if sugarhudhpmovevar >= 56 then -- Stopping the health move var from overflowing.
+            sugarhudhpmovevar = 56 
         end
 
-        if sugarhudhpmovevar <= -32 then
-            sugarhudhpmovevar = -32 -- stopping the health move var from underflowing
+        if sugarhudhpmovevar <= -32 then -- Stopping the health move var from underflowing.
+            sugarhudhpmovevar = -32 
         end
     end
             local SugarHp = {
@@ -38,10 +44,7 @@ local function sugar_hp()
             [7] = get_texture_info("HPMeter7"),
             [8] = get_texture_info("HPMeter8"),
             }
-            
-            local hudmovetimer = 0
-            hudmovetimer = hudmovetimer + 1
-
+        
 
             local sugardisplayhp = math.floor(tonumber(sugarhpvalue))
             if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and not obj_get_first_with_behavior_id(id_bhvActSelector) then
