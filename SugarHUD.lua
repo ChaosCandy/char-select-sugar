@@ -17,13 +17,11 @@ local function sugar_hp()
         -- This is what handles health meter move variable, it moves the health meter up and down based on mario's health!
     if m.playerIndex == 0 then -- Checking if you're the local player.
        
-        if (m.health >> 8) < 8 or m.waterLevel >= m.pos.y then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
+        if (m.health >> 8) < 8 or (m.action & ACT_FLAG_SWIMMING ~= 0) or m.action == ACT_WATER_JUMP then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
             sugarhudhpmovevar = sugarhudhpmovevar + (8 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
-        else
-            if m.waterLevel < m.pos.y then
+            elseif (m.action & ACT_FLAG_SWIMMING ~= 1) and m.action ~= ACT_WATER_JUMP then
                 sugarhudhpmovevar = sugarhudhpmovevar - (5 + (sugarhudhpmovevar / 12)) -- Making Sugar's Healh Meter Move UP.
             end
-        end
 
         if sugarhudhpmovevar >= 56 then -- Stopping the health move var from overflowing.
             sugarhudhpmovevar = 56 
