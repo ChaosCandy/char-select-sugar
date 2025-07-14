@@ -1,3 +1,4 @@
+
 -- Setting up our variables here!
 
 local function sugarhpvaluegrab()
@@ -9,28 +10,24 @@ sugarhudhpmovevar = -32
 -- Variable set up ends here!
 
 
-
 -- This is her custom power meter!
 local function sugar_hp()
     local m = gMarioStates[0]
-
-        -- This is what handles health meter move variable, it moves the health meter up and down based on mario's health!
+     -- This is what handles health meter move variable, it moves the health meter up and down based on mario's health!
     if m.playerIndex == 0 then -- Checking if you're the local player.
        
-        if (m.health >> 8) < 8 or m.waterLevel >= m.pos.y then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
-            sugarhudhpmovevar = sugarhudhpmovevar + (8 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
-        else
-            if m.waterLevel < m.pos.y then
+        if (m.health >> 8) < 8 or (m.action & ACT_FLAG_SWIMMING ~= 0) or m.action == ACT_WATER_JUMP then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
+                sugarhudhpmovevar = sugarhudhpmovevar + (9 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
+            elseif (m.action & ACT_FLAG_SWIMMING ~= 1) and m.action ~= ACT_WATER_JUMP then
                 sugarhudhpmovevar = sugarhudhpmovevar - (5 + (sugarhudhpmovevar / 12)) -- Making Sugar's Healh Meter Move UP.
             end
-        end
 
-        if sugarhudhpmovevar >= 56 then -- Stopping the health move var from overflowing.
-            sugarhudhpmovevar = 56 
+        if sugarhudhpmovevar >= 60 then -- Stopping the health move var from overflowing.
+            sugarhudhpmovevar = 60
         end
 
         if sugarhudhpmovevar <= -32 then -- Stopping the health move var from underflowing.
-            sugarhudhpmovevar = -32 
+            sugarhudhpmovevar = -32
         end
     end
             local SugarHp = {
@@ -49,7 +46,7 @@ local function sugar_hp()
             local sugardisplayhp = math.floor(tonumber(sugarhpvalue))
             if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and not obj_get_first_with_behavior_id(id_bhvActSelector) then
             djui_hud_set_resolution(RESOLUTION_N64)
-            djui_hud_render_texture(SugarHp[sugardisplayhp], ((djui_hud_get_screen_width() / 2) - 32), ((djui_hud_get_screen_height() / 28) - 64) + sugarhudhpmovevar, 1, 1)
+            djui_hud_render_texture(SugarHp[sugardisplayhp], ((djui_hud_get_screen_width() / 2) - 62), ((djui_hud_get_screen_height() / 28) - 64) + sugarhudhpmovevar, 1, 1)
         end
 end
 

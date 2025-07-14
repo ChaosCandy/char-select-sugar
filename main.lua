@@ -102,6 +102,7 @@ local HM_SUGAR= {
 
 local CSloaded = false
 local function on_character_select_load()
+    djui_popup_create("Sugar WILL 100% KILL you all, run.", 1)
     CT_SUGAR = _G.charSelect.character_add("Sugar", {"A shockingly talented and violent", "magical slime girl! <3"}, "SourChaosCandy / Sugar", {r = 168, g = 28, b = 206}, E_MODEL_CUSTOM_MODEL, CT_CHARNAME2, TEX_CUSTOM_LIFE_ICON)
     _G.charSelect.character_add_caps(E_MODEL_CUSTOM_MODEL, CAPTABLE_CHAR)
     _G.charSelect.character_add_voice(E_MODEL_CUSTOM_MODEL, VOICETABLE_CHARNAME2)
