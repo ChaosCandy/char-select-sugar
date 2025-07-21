@@ -18,6 +18,7 @@ local function sugar_hp()
        
         if (m.health >> 8) < 8 or (m.action & ACT_FLAG_SWIMMING ~= 0) or m.action == ACT_WATER_JUMP then -- If mario's health (shifted 8 bytes) under 8, or is he underwater.
                 sugarhudhpmovevar = sugarhudhpmovevar + (9 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
+            sugarhudhpmovevar = sugarhudhpmovevar + (8 - (sugarhudhpmovevar / 7)) -- Making Sugar's Healh Meter Move DOWN.
             elseif (m.action & ACT_FLAG_SWIMMING ~= 1) and m.action ~= ACT_WATER_JUMP then
                 sugarhudhpmovevar = sugarhudhpmovevar - (5 + (sugarhudhpmovevar / 12)) -- Making Sugar's Healh Meter Move UP.
             end
