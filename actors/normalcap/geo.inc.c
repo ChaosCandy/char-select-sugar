@@ -1,6 +1,7 @@
 const GeoLayout normalcap_Normal_Cap_State_Switch_opt1[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_Normal_Cap_DL_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_Normal_Cap_DL_mesh_layer_4),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
@@ -8,14 +9,16 @@ const GeoLayout normalcap_Normal_Cap_State_Switch_opt1[] = {
 const GeoLayout normalcap_Normal_Cap_State_Switch_opt2[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, normalcap_Normal_Cap_DL_mesh_layer_4_mat_override_MetalSugar_001_0),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, normalcap_Normal_Cap_DL_mesh_layer_1_mat_override_Metal__METAL__0),
+		GEO_DISPLAY_LIST(LAYER_ALPHA, normalcap_Normal_Cap_DL_mesh_layer_4_mat_override_Metal__METAL__0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout normalcap_Normal_Cap_State_Switch_opt3[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_Normal_Cap_DL_mesh_layer_4_mat_override_MetalSugar_001_0),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_Normal_Cap_DL_mesh_layer_1_mat_override_Metal__METAL__0),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_Normal_Cap_DL_mesh_layer_4_mat_override_Metal__METAL__0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -34,6 +37,7 @@ const GeoLayout normalcap_geo[] = {
 				GEO_OPEN_NODE(),
 					GEO_NODE_START(),
 					GEO_OPEN_NODE(),
+						GEO_DISPLAY_LIST(LAYER_OPAQUE, normalcap_Normal_Cap_DL_mesh_layer_1),
 						GEO_DISPLAY_LIST(LAYER_ALPHA, normalcap_Normal_Cap_DL_mesh_layer_4),
 					GEO_CLOSE_NODE(),
 					GEO_BRANCH(1, normalcap_Normal_Cap_State_Switch_opt1),
@@ -42,6 +46,7 @@ const GeoLayout normalcap_geo[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, normalcap_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, normalcap_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, normalcap_material_revert_render_settings),
 	GEO_CLOSE_NODE(),

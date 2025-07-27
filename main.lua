@@ -17,7 +17,7 @@ if not _G.charSelectExists then
     return 0
 end
 
-local E_MODEL_CUSTOM_MODEL = smlua_model_util_get_id("sugar_geo") -- Located in "actors"
+local E_MODEL_CUSTOM_MODEL = smlua_model_util_get_id("sugar2_geo") -- Located in "actors"
 
 local TEX_CUSTOM_LIFE_ICON = get_texture_info("Sugar_Life") -- Located in "textures"
 
@@ -74,13 +74,13 @@ local CAPTABLE_CHAR = {
 
 local PALETTE_CHAR = {
     [PANTS]  = "170025",
-    [SHIRT]  = "A81CCE",
-    [GLOVES] = "FABB17",
-    [SHOES]  = "170025",
-    [HAIR]   = "7f4521",
-    [SKIN]   = "fbc18d",
+    [SHIRT]  = "fa920f",
+    [GLOVES] = "FAC999",
+    [SHOES]  = "a31bc8",
+    [HAIR]   = "FFFFFF",
+    [SKIN]   = "FAC999",
     [CAP]    = "a81cce",
-	[EMBLEM] = "ffffff"
+	[EMBLEM] = "a31bc8"
 }
 
 local HM_SUGAR= {
