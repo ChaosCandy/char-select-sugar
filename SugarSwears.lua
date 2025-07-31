@@ -22,7 +22,7 @@ local SugarSwearList = {
     [16] = "TEAR DOWN MY WIFE, TEAR DOWN MY KIDS, TEAR DOWN MY HP WHILE YOU'RE AT IT!!!",
     [17] = "you're mom",
     [18] = "NOW'S YOUR CHANCE TO BE [[BIG SHOT]] BY ME.",
-    [19] = "Gamma, kill " .. gNetworkPlayers[0].name .. " with hammers.",
+    [19] = "DUDE THIS GAMEPLAY IS SO FUCKING FUNNY, IT MAKES ME WANNA MERGE WITHOUT LOOKING!!!",
     [20] = "CT, help me!!! I ran out of jokes! :(",
     [21] = "RUDE!!!",
     [22] = "*Insert 9/11 joke here.*",
@@ -45,17 +45,23 @@ local SugarSwearList = {
     [39] = "... seriously I'm scared of the water cooler in my head.",
     [40] = "boobie.",
     [41] = "ASMR but it's me holding you hostage.",
-    [42] = "Delightfully devilish, " .. gNetworkPlayers[0].name .. "!~",
-    [43] = "you're a poop-nose",
-    [44] = "Hey uh... " .. gNetworkPlayers[0].name .. " I think things are taking a bit of a weird route, right now.",
-    [45] = "DUDE THIS GAMEPLAY IS SO FUCKING FUNNY, IT MAKES ME WANNA MERGE WITHOUT LOOKING!!!",
+    [42] = "you're a poop-nose",
 }
 
 local function sugarswearsay()
     local m = gMarioStates[0]
-        if m.playerIndex == 0 and _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
-            local randomSwear = SugarSwearList[44]
-            djui_chat_message_create("\\#963386\\Sugar\\#FFFFFF\\: " .. randomSwear)
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
+            local random = math.random(1, 45)
+            local randomSwear = SugarSwearList[random]
+            if random == 43 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Hey uh... " .. gNetworkPlayers[0].name .. ", I think things are taking a bit of a weird route, right now.")
+            elseif random == 44 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Gamma, kill " .. gNetworkPlayers[0].name .. " with hammers.")
+            elseif random == 45 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Delightfully devilish, " .. gNetworkPlayers[0].name .. "!~")
+            else
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomSwear)
+            end
         end
 end
 
