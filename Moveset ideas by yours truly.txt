@@ -6,5 +6,6 @@ Death message compatibility with [CS] Gamma and [CS] The Definitive CT Himself
 Make Sugar still controllable when on fire
 Squash n' Stretch (Saul, you know what to do)
 Add the squares line to the death messages (you know the one)
+Explosion Immunity
 
 (More may be added in later, I'll post my code for some of these ideas for her to use)
