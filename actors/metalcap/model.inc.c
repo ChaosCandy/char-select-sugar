@@ -1,5 +1,5 @@
 Lights1 metalcap_Metal__CAP__lights = gdSPDefLights1(
-	0xFF, 0x0, 0xF9,
+	0xFF, 0xFF, 0xFF,
 	0x0, 0x0, 0x0, 0x28, 0x28, 0x28);
 
 Lights1 metalcap_Metal__METAL__lights = gdSPDefLights1(
@@ -166,8 +166,10 @@ Gfx metalcap_Metal_Cap_DL_mesh_layer_1_tri_0[] = {
 
 
 Gfx mat_metalcap_Metal__CAP_[] = {
-	gsSPGeometryMode(0, G_TEXTURE_GEN),
-	gsSPSetLights1(metalcap_Metal__CAP__lights),
+	gsSPSetGeometryMode(G_TEXTURE_GEN),
+	gsSPLight(&metalcap_Metal__CAP__lights.l, 1),
+    gsSPLight(&metalcap_Metal__CAP__lights.a, 2),
+    gsSPCopyLightEXT(2, 15),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, TEXEL1, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, TEXEL1, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -186,7 +188,7 @@ Gfx mat_metalcap_Metal__CAP_[] = {
 };
 
 Gfx mat_revert_metalcap_Metal__CAP_[] = {
-	gsSPGeometryMode(G_TEXTURE_GEN, 0),
+	gsSPClearGeometryMode(G_TEXTURE_GEN),
 	gsDPPipeSync(),
 	gsDPSetAlphaDither(G_AD_DISABLE),
 	gsSPEndDisplayList(),

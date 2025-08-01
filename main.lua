@@ -79,7 +79,7 @@ local PALETTE_CHAR = {
     [SHOES]  = "a31bc8",
     [HAIR]   = "FFFFFF",
     [SKIN]   = "FAC999",
-    [CAP]    = "a81cce",
+    [CAP]    = "a31bc8",
 	[EMBLEM] = "a31bc8"
 }
 
