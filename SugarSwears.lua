@@ -49,12 +49,13 @@ local SugarSwearList = {
     [40] = "boobie.",
     [41] = "ASMR but it's me holding you hostage.",
     [42] = "you're a poop-nose",
+    [43] = "I must be in Minecraft because when I look around all I see are SQUARES. >:("
 }
 
 local sugarvictorylist = {
     [1] = "Yay! We did it... somehow! :D",
     [2] = "I didn't know you could play well, like, at all!",
-    [3] = "I will never forgive you for the amount of damage caused me, this victory is hollow.",
+    [3] = "I will never forgive you for the amount of damage that you caused me, this victory is hollow.",
     [4] = "Oh wow, you won!",
     [5] = "I have no idea what to even say to here, I'm not used to victory.",
     [6] = "Shockingly, you didn't kill me! Woohoo!",
@@ -70,23 +71,23 @@ local sugarvictorylist = {
 local function sugargreeting()
     if SugarGreetingFlag == false then
         SugarGreetingFlag = true
-        djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Omg hai hai haiiiii!~ Hope you have fun, "  .. gNetworkPlayers[0].name .. "!~")
+        djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Omg hai hai haiiiii!~ Hope you have fun, "  .. gNetworkPlayers[0].name .. "\\#FFFFFF\\!~")
     end
 end
 
 local function sugarswearsay() -- The function that handles the Death Messages!
     local m = gMarioStates[0]
         if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarDeathFlag == false and m.action ~= ACT_LAVA_BOOST then
-            local random = math.random(1, 45)
+            local random = math.random(46)
             local randomSwear = SugarSwearList[random]
-            if random == 43 then
-                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Hey uh... " .. gNetworkPlayers[0].name .. ", I think things are taking a bit of a weird route, right now.")
-                SugarDeathFlag = true
-            elseif random == 44 then
-                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Gamma, kill " .. gNetworkPlayers[0].name .. " with hammers.")
+            if random == 44 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Hey uh... " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\, I think things are taking a bit of a weird route, right now.")
                 SugarDeathFlag = true
             elseif random == 45 then
-                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Delightfully devilish, " .. gNetworkPlayers[0].name .. "!~")
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Gamma, kill " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\ with hammers.")
+                SugarDeathFlag = true
+            elseif random == 46 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Delightfully devilish, " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\!~")
                 SugarDeathFlag = true
             else
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomSwear)
@@ -115,14 +116,22 @@ end
 
 local function sugardeathflagreset() -- The function that controls Sugar's death flag, so death messages work properly.
     local m = gMarioStates[0]
-        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and m.action == ACT_WALKING or m.action == ACT_IDLE then
             SugarDeathFlag = false
         end
+end
+
+-- Sugar's Death Flag Check!
+
+local function debugdeathflag()
+    djui_chat_message_create(tostring(SugarDeathFlag))
+    return true
 end
 
 
 -- Hooks
 hook_event(HOOK_ON_DEATH, sugarswearsay)
 hook_event(HOOK_ON_INTERACT, sugarvictorysay)
-hook_event(HOOK_BEFORE_SET_MARIO_ACTION, sugardeathflagreset)
+hook_event(HOOK_UPDATE, sugardeathflagreset)
 hook_event(HOOK_UPDATE, sugargreeting)
+hook_chat_command("deathflag", "Check if death flag is true!", debugdeathflag)

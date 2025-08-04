@@ -3,7 +3,7 @@
 -- Squash immunity (You can't squash the squishiest slime gal alive)
 
 
-local function stuffimmunity()
+local function squishimmunity()
     local m = gMarioStates[0]
     if m.action == ACT_SQUISHED and _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
         m.invincTimer = 10
@@ -11,4 +11,4 @@ local function stuffimmunity()
 end
 
 -- Hooks
-hook_event(HOOK_MARIO_UPDATE, stuffimmunity)
+hook_event(HOOK_MARIO_UPDATE, squishimmunity)
