@@ -3,6 +3,8 @@
 
 -- Da variables!~
 
+local SugarDeathFlag = false
+
 local SugarSwearList = {
     [1] = "You're not exactly my favorite player either...",
     [2] = "OW!? CAN YOU NOT DO THAT?!?",
@@ -48,22 +50,62 @@ local SugarSwearList = {
     [42] = "you're a poop-nose",
 }
 
+local sugarvictorylist = {
+    [1] = "Yay! We did it... somehow! :D",
+    [2] = "I didn't know you could play well, like, at all!",
+    [3] = "I will never forgive you for the amount of damage caused me, this victory is hollow.",
+    [4] = "Oh wow, you won!",
+    [5] = "I have no idea what to even say to here, I'm not used to victory.",
+    [6] = "Shockingly, you didn't kill me! Woohoo!",
+    [7] = "That star was EASY! I'm GLAD you won!... otherwise...",
+    [8] = "Yay!",
+    [9] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    [10] = "Congrats! You finished..!",
+}
+
+
+-- The Actual Victory/Death Message code.
+
 local function sugarswearsay()
     local m = gMarioStates[0]
-        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarDeathFlag == false and m.action ~= ACT_LAVA_BOOST then
             local random = math.random(1, 45)
             local randomSwear = SugarSwearList[random]
             if random == 43 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Hey uh... " .. gNetworkPlayers[0].name .. ", I think things are taking a bit of a weird route, right now.")
+                SugarDeathFlag = true
             elseif random == 44 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Gamma, kill " .. gNetworkPlayers[0].name .. " with hammers.")
+                SugarDeathFlag = true
             elseif random == 45 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Delightfully devilish, " .. gNetworkPlayers[0].name .. "!~")
+                SugarDeathFlag = true
             else
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomSwear)
+                SugarDeathFlag = true
             end
         end
 end
 
+local function sugarvictorysay(m, o, intType)
+    local m = gMarioStates[0]
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and intType == INTERACT_STAR_OR_KEY then
+            local random = math.random(11)
+            local randomvictory = sugarvictorylist[random]
+            if random == 11 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: We now have " .. m.numStars .. " stars!")
+            else
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomvictory)
+            end
+        end
+end
+
+
+local function sugardeathflagreset()
+    SugarDeathFlag = false
+end
+
 -- Hooks
 hook_event(HOOK_ON_DEATH, sugarswearsay)
+hook_event(HOOK_ON_INTERACT, sugarvictorysay)
+hook_event(HOOK_BEFORE_SET_MARIO_ACTION, sugardeathflagreset)

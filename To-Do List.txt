@@ -1,0 +1,5 @@
+Sugar 64 To-Do List!... for fixes!
+
+Fix Sugar's squish immunity still being active while character movesets are disabled.
+
+Figure out how to make this entire mod without the character select api.
