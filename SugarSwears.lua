@@ -92,8 +92,12 @@ local function sugarvictorysay(m, o, intType)
         if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and intType == INTERACT_STAR_OR_KEY then
             local random = math.random(11)
             local randomvictory = sugarvictorylist[random]
-            if random == 11 then
-                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: We now have " .. m.numStars .. " stars!")
+            if random == 11 and m.numStars <= 120 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Yay! We now have " .. m.numStars .. " stars! Good job! :3")
+            elseif random == 11 and m.numStars >= 121 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Yay! We now have " .. m.numStars .. "... wait a minute? What the fuck? HOW???")
+            elseif random == 11 and m.numStars >= 250 then
+                djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Yay! We now have " .. m.numStars .. " stars... YOU CHEATER!!! YOU'RE CHEATING!!!")
             else
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomvictory)
             end
