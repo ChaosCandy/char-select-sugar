@@ -4,6 +4,7 @@
 -- Da variables!~
 
 local SugarDeathFlag = false
+local SugarGreetingFlag = false
 
 local SugarSwearList = {
     [1] = "You're not exactly my favorite player either...",
@@ -60,13 +61,20 @@ local sugarvictorylist = {
     [7] = "That star was EASY! I'm GLAD you won!... otherwise...",
     [8] = "Yay!",
     [9] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-    [10] = "Congrats! You finished..!",
+    [10] = "Congrats! You finished..!"
 }
 
 
--- The Actual Victory/Death Message code.
+-- Sugar's Greeting when the player hosts a game!
 
-local function sugarswearsay()
+local function sugargreeting()
+    if SugarGreetingFlag == false then
+        SugarGreetingFlag = true
+        djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Omg hai hai haiiiii!~ Hope you have fun, "  .. gNetworkPlayers[0].name .. "!~")
+    end
+end
+
+local function sugarswearsay() -- The function that handles the Death Messages!
     local m = gMarioStates[0]
         if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarDeathFlag == false and m.action ~= ACT_LAVA_BOOST then
             local random = math.random(1, 45)
@@ -87,7 +95,7 @@ local function sugarswearsay()
         end
 end
 
-local function sugarvictorysay(m, o, intType)
+local function sugarvictorysay(m, o, intType) -- The function that controls Sugar's victory messages that appear whenever a star or key is collected.
     local m = gMarioStates[0]
         if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and intType == INTERACT_STAR_OR_KEY then
             local random = math.random(11)
@@ -105,11 +113,16 @@ local function sugarvictorysay(m, o, intType)
 end
 
 
-local function sugardeathflagreset()
-    SugarDeathFlag = false
+local function sugardeathflagreset() -- The function that controls Sugar's death flag, so death messages work properly.
+    local m = gMarioStates[0]
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR then
+            SugarDeathFlag = false
+        end
 end
+
 
 -- Hooks
 hook_event(HOOK_ON_DEATH, sugarswearsay)
 hook_event(HOOK_ON_INTERACT, sugarvictorysay)
 hook_event(HOOK_BEFORE_SET_MARIO_ACTION, sugardeathflagreset)
+hook_event(HOOK_UPDATE, sugargreeting)
