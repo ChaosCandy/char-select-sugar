@@ -13,7 +13,7 @@ SugarChatFlag.Death = true
 SugarChatTalkFreq.leveldesc = {
     [0] = "Silent - Does not talk at all, Sugar says nothing in the chat.",
     [1] = "Occasional - Says chat messages starting a game or when collecting stars/keys!",
-    [2] = "Plenty - Now she has death messages! Upon every death, she says something dumb!",
+    [2] = "Plenty - Now she has death messages! Upon every death, she says something dumb! (This is the default!)",
     [3] = "EXTREMELY ANNOYING - SHE WILL TALK RANDOMLY AFTER RANDOM ACTIONS. THIS IS A JOKE SETTING!!! [THIS LEVEL IS CURRENTLY UNFINISHED.]"
 }
 

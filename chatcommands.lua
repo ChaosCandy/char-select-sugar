@@ -23,6 +23,7 @@ local function SugarYapLevel(msg)
     if msg == "0" then
         djui_chat_message_create(tostring(SugarChatTalkFreq.leveldesc[0]))
         SugarChatTalkFreq.level = 0
+        djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: Was it something I said?")
         return true
     elseif msg == "1" then
         djui_chat_message_create(tostring(SugarChatTalkFreq.leveldesc[1]))
