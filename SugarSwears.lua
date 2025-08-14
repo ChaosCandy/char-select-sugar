@@ -78,7 +78,8 @@ SugarChatDialog.Win = {
 }
 
 local function sugargreeting() -- Sugar's Greeting when the player hosts a game!
-    if SugarChatFlag.Greeting == true and SugarChatTalkFreq.level >= 1 then -- Make sure the SugarChatFlag.Greeting is set to false first, so it doesn't spam the greeting in every frame.
+local m = gMarioStates[0]
+if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarChatFlag.Greeting == true and SugarChatTalkFreq.level >= 1 then -- Make sure the SugarChatFlag.Greeting is set to false first, so it doesn't spam the greeting in every frame.
         local random = math.random(3)
             if random == 1 then
                     djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "OMG HAI HAI HAII " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\!~ I hope you have fun!~")
