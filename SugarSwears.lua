@@ -4,9 +4,19 @@
 
 SugarChatDialog = {}
 SugarChatFlag = {}
+SugarChatTalkFreq = {}
 
-SugarChatFlag.Greeting = false
-SugarChatFlag.Death = false
+SugarChatTalkFreq.level = 2 -- The default setting for Sugar's talk level!
+SugarChatFlag.Greeting = true
+SugarChatFlag.Death = true
+
+SugarChatTalkFreq.leveldesc = {
+    [0] = "Silent - Does not talk at all, Sugar says nothing in the chat.",
+    [1] = "Occasional - Says chat messages starting a game or when collecting stars/keys!",
+    [2] = "Plenty - Now she has death messages! Upon every death, she says something dumb!",
+    [3] = "EXTREMELY ANNOYING - SHE WILL TALK RANDOMLY AFTER RANDOM ACTIONS. THIS IS A JOKE SETTING!!! [THIS LEVEL IS CURRENTLY UNFINISHED.]"
+}
+
 
 SugarChatDialog.Death = {
     [1] = "You're not exactly my favorite player either...",
@@ -68,45 +78,45 @@ SugarChatDialog.Win = {
 }
 
 local function sugargreeting() -- Sugar's Greeting when the player hosts a game!
-    if SugarChatFlag.Greeting == false then -- Make sure the SugarChatFlag.Greeting is set to false first, so it doesn't spam the greeting in every frame.
+    if SugarChatFlag.Greeting == true and SugarChatTalkFreq.level >= 1 then -- Make sure the SugarChatFlag.Greeting is set to false first, so it doesn't spam the greeting in every frame.
         local random = math.random(3)
             if random == 1 then
                     djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "OMG HAI HAI HAII " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\!~ I hope you have fun!~")
-                    SugarChatFlag.Greeting = true
+                    SugarChatFlag.Greeting = false
             elseif random == 2 then
                     djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Oh god, " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\. Here we go again...")
-                    SugarChatFlag.Greeting = true
+                    SugarChatFlag.Greeting = false
             elseif random == 3 then
                     djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Are you ready, " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\? I certainly am!~")
-                    SugarChatFlag.Greeting = true
+                    SugarChatFlag.Greeting = false
             end
         end
 end
 
 local function sugarswearsay() -- The function that handles the Death Messages!
     local m = gMarioStates[0]
-        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarChatFlag.Death == false then
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and SugarChatFlag.Death == true and SugarChatTalkFreq.level >= 2 then
             local random = math.random(46)
             local randomSwear = SugarChatDialog.Death[random]
             if random == 44 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Hey uh... " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\, I think things are taking a bit of a weird route, right now.")
-                SugarChatFlag.Death = true
+                SugarChatFlag.Death = false
             elseif random == 45 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Gamma, kill " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\ with hammers.")
-                SugarChatFlag.Death = true
+                SugarChatFlag.Death = false
             elseif random == 46 then
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. "Delightfully devilish, " .. gNetworkPlayers[0].name .. "\\#FFFFFF\\!~")
-                SugarChatFlag.Death = true
+                SugarChatFlag.Death = false
             else
                 djui_chat_message_create("\\#fabc0f\\Sugar\\#FFFFFF\\: " .. randomSwear)
-                SugarChatFlag.Death = true
+                SugarChatFlag.Death = false
             end
         end
 end
 
 local function sugarvictorysay(m, o, intType) -- The function that controls Sugar's victory messages that appear whenever a star or key is collected.
     local m = gMarioStates[0]
-        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and intType == INTERACT_STAR_OR_KEY then
+        if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and intType == INTERACT_STAR_OR_KEY and SugarChatTalkFreq.level >= 1 then
             local random = math.random(11)
             local randomvictory = SugarChatDialog.Win[random]
             if random == 11 and m.numStars <= 120 then
@@ -125,21 +135,12 @@ end
 local function sugardeathflagreset() -- The function that controls Sugar's death flag, so death messages work properly.
     local m = gMarioStates[0]
         if _G.charSelect.character_get_current_number(m.playerIndex) == CT_SUGAR and m.action == ACT_WALKING or m.action == ACT_IDLE then
-            SugarChatFlag.Death = false
+            SugarChatFlag.Death = true
         end
 end
-
--- Sugar's Death Flag Check!
-
-local function debugdeathflag()
-    djui_chat_message_create(tostring(SugarChatFlag.Death))
-    return true
-end
-
 
 -- Hooks
 hook_event(HOOK_ON_DEATH, sugarswearsay)
 hook_event(HOOK_ON_INTERACT, sugarvictorysay)
 hook_event(HOOK_UPDATE, sugardeathflagreset)
 hook_event(HOOK_UPDATE, sugargreeting)
-hook_chat_command("deathflag", "Check if death flag is true!", debugdeathflag)
