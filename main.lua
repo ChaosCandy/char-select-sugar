@@ -74,7 +74,7 @@ local CAPTABLE_CHAR = {
 
 local PALETTE_CHAR = {
     [PANTS]  = "170025",
-    [SHIRT]  = "fa920f",
+    [SHIRT]  = "f8930f",
     [GLOVES] = "FAC999",
     [SHOES]  = "a31bc8",
     [HAIR]   = "FFFFFF",
