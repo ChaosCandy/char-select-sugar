@@ -6,7 +6,7 @@ SugarChatDialog = {}
 SugarChatFlag = {}
 SugarChatTalkFreq = {}
 
-SugarChatTalkFreq.level = 2 -- The default setting for Sugar's talk level!
+SugarChatTalkFreq.level = 0 -- The default setting for Sugar's talk level!
 SugarChatFlag.Greeting = true
 SugarChatFlag.Death = true
 
